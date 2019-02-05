@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.v7.widget.CardView
+        android:id="@+id/user_profile_photo"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6.0dip"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="2.0dip"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+       <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:weightSum="2"
+            android:padding="3dp"
+            android:orientation="horizontal">
+
+           <!--<LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:padding="5dp"
+               android:orientation="vertical">
+
+               <ImageView
+                   android:id="@+id/cardview_image"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_vertical"
+                   android:contentDescription="profile_image"
+                   android:elevation="5dp"
+                   android:padding="5dp"
+                   android:scaleType="centerCrop"
+                   app:srcCompat="@drawable/girl" />
+
+           </LinearLayout>-->
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_weight="0"
+               android:gravity="start"
+               android:orientation="vertical">
+
+               <TextView
+                   android:id="@+id/username"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="start"
+                   android:layout_marginStart="3dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="5dp"
+                   android:text="Welcome Username"
+                   android:textColor="#333333"
+                   android:textSize="@dimen/text_label" />
+
+               <LinearLayout
+                   android:id="@+id/admin_hide"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:baselineAligned="false"
+                   android:layout_margin="3dp"
+                   android:visibility="gone"
+                   android:weightSum="2">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="start"
+                       android:layout_weight="1"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:gravity="start"
+                           android:padding="1dp"
+                           android:text="Mobile:"
+                           android:textColor="@color/text_secondary"
+                           android:textSize="@dimen/text_secondary" />
+
+                       <TextView
+                           android:id="@+id/txt_mobile"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:padding="1dp"
+                           android:text="9858964585"
+                           android:textAlignment="textStart"
+                           android:textColor="#333333"
+                           android:textSize="@dimen/text_secondary" />
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="start"
+                       android:layout_weight="1"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:gravity="start"
+                           android:padding="1dp"
+                           android:text="Age :"
+                           android:textColor="@color/text_secondary"
+                           android:textSize="@dimen/text_secondary" />
+
+                       <TextView
+                           android:id="@+id/txt_age"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:textAlignment="textStart"
+                           android:padding="1dp"
+                           android:text="28"
+                           android:textColor="#333333"
+                           android:textSize="@dimen/text_secondary" />
+
+                   </LinearLayout>
+
+               </LinearLayout>
+
+
+               <!--<LinearLayout-->
+                   <!--android:layout_width="match_parent"-->
+                   <!--android:layout_height="wrap_content"-->
+                   <!--android:orientation="horizontal"-->
+                   <!--android:padding="1dp"-->
+                   <!--android:weightSum="2">-->
+
+                   <!--<LinearLayout-->
+                       <!--android:layout_width="match_parent"-->
+                       <!--android:layout_height="wrap_content"-->
+                       <!--android:layout_gravity="start"-->
+                       <!--android:layout_weight="1"-->
+                       <!--android:orientation="vertical">-->
+
+                       <!--<TextView-->
+                           <!--android:layout_width="wrap_content"-->
+                           <!--android:layout_height="wrap_content"-->
+                           <!--android:drawableStart="@drawable/age_user"-->
+                           <!--android:gravity="start"-->
+                           <!--android:padding="1dp"-->
+                           <!--android:text=" Age : "-->
+                           <!--android:textSize="14sp" />-->
+
+                       <!--<TextView-->
+                           <!--android:id="@+id/regDob"-->
+                           <!--android:layout_width="match_parent"-->
+                           <!--android:layout_height="wrap_content"-->
+                           <!--android:textAlignment="textStart"-->
+                           <!--android:layout_marginStart="20dp"-->
+                           <!--android:padding="1dp"-->
+                           <!--android:text="28"-->
+                           <!--android:textColor="@color/secondary"-->
+                           <!--android:textSize="14sp" />-->
+                   <!--</LinearLayout>-->
+
+                   <!--<LinearLayout-->
+                       <!--android:layout_width="match_parent"-->
+                       <!--android:layout_height="wrap_content"-->
+                       <!--android:layout_gravity="start"-->
+                       <!--android:layout_weight="1"-->
+                       <!--android:orientation="vertical">-->
+
+                       <!--<TextView-->
+                           <!--android:layout_width="wrap_content"-->
+                           <!--android:layout_height="wrap_content"-->
+                           <!--android:drawableStart="@drawable/ic_blood_transfusion"-->
+                           <!--android:gravity="start"-->
+                           <!--android:padding="1dp"-->
+                           <!--android:text=" Blood Group : "-->
+                           <!--android:textSize="14sp" />-->
+
+                       <!--<TextView-->
+                           <!--android:id="@+id/regBlood"-->
+                           <!--android:layout_width="match_parent"-->
+                           <!--android:layout_height="wrap_content"-->
+                           <!--android:textAlignment="textStart"-->
+                           <!--android:layout_marginStart="20dp"-->
+                           <!--android:padding="1dp"-->
+                           <!--android:text="O+ve"-->
+                           <!--android:textColor="@color/secondary"-->
+                           <!--android:textSize="14sp" />-->
+
+                   <!--</LinearLayout>-->
+
+               <!--</LinearLayout>-->
+
+
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:baselineAligned="false"
+                   android:padding="1dp"
+                   android:visibility="gone"
+                   android:weightSum="2">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="start"
+                       android:layout_weight="1"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:gravity="start"
+                           android:padding="1dp"
+                           android:text="Mobile No"
+                           android:textSize="14sp" />
+
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:textAlignment="textStart"
+                           android:padding="1dp"
+                           android:text="9788782667"
+                           android:textColor="@color/text_secondary"
+                           android:textSize="14sp" />
+
+                   </LinearLayout>
+
+               </LinearLayout>
+           </LinearLayout>
+
+       </LinearLayout>
+
+</android.support.v7.widget.CardView>
+

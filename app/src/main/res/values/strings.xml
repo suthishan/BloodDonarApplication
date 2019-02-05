@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">BloodDonar</string>
+
+
+    <string name="refresh">Refresh</string>
+    <string name="please_check_your_internet_connectivity">Please Check Your Internet Connectivity.</string>
+    <string name="internet_unavailable">Internet Unavailable.</string>
+    <string name="no_internet">No Internet</string>
+
+
+    <string name="turn_on_location">Turn on location</string>
+    <string name="please_check_your_gps_connectivity">Please Check Your GPS Connectivity.</string>
+    <string name="gps_unavailable">GPS Unavailable.</string>
+    <string name="no_location">No Location</string>
+
+
+    <string name="no_google_playservice_available">No Google Playservice found. Please install it.</string>
+    <string name="permission_denied_explanation">You have not granted location permission. So the service cannot be started.</string>
+    <string name="settings">Settings</string>
+    <string name="show_pwd">Show Password</string>
+
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="donor_list">Donor List</string>
+    <string name="seeker_list">Seeker List</string>
+    <string name="request_blood">Request Blood</string>
+    <string name="transfer">Transfer</string>
+    <string name="no_recordes_found">No Records Found</string>
+
+    <string-array name="blood_group_list">
+        <item>--Select--</item>
+        <item>A+ve</item>
+        <item>A-ve</item>
+        <item>B+ve</item>
+        <item>B-ve</item>
+        <item>O+ve</item>
+        <item>O-ve</item>
+        <item>AB+ve</item>
+        <item>AB-ve</item>
+        <item>Others</item>
+
+    </string-array>
+
+
+    <string-array name="gender">
+        <item>--Select--</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+
+
+    </string-array>
+</resources>

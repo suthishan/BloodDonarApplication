@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8.0dip"
+        android:orientation="vertical"
+        android:padding="16.0dip"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="3.0dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="96.0dip"
+                    android:layout_height="80.0dip"
+                    android:layout_gravity="start"
+                    android:padding="12.0dip"
+                    android:contentDescription="Card name"
+                    app:srcCompat="@drawable/user" />
+
+                <TextView
+                    android:id="@+id/txt_donor_call"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4.0dip"
+                    android:layout_marginLeft="4.0dip"
+                    android:layout_marginRight="4.0dip"
+                    android:background="#80a165"
+                    android:gravity="center"
+                    android:padding="4.0dip"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_secondary"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1.0dip"
+                android:layout_height="fill_parent"
+                android:alpha="0.2"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="100.0dip"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_donor_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4.0dip"
+                    android:paddingLeft="8.0dip"
+                    android:paddingRight="8.0dip"
+                    android:paddingTop="4.0dip"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_secondary"
+                    android:textStyle="bold"
+                    android:text="Donar Name"/>
+
+                <TextView
+                    android:id="@+id/txt_donor_blood_group"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4.0dip"
+                    android:paddingLeft="8.0dip"
+                    android:paddingRight="8.0dip"
+                    android:paddingTop="4.0dip"
+                    android:textSize="@dimen/text_secondary"
+                    android:textColor="@color/text_primary"
+                    android:text="Donar Blood Group"/>
+
+                <TextView
+                    android:id="@+id/txt_donor_phone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4.0dip"
+                    android:text="Donar Phone"
+                    android:paddingLeft="8.0dip"
+                    android:paddingRight="8.0dip"
+                    android:paddingTop="4.0dip"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_secondary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_donor_location"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4.0dip"
+                    android:drawableStart="@drawable/ic_place_16dp"
+                    android:text="location"
+                    android:paddingBottom="4.0dip"
+                    android:paddingLeft="8.0dip"
+                    android:paddingRight="8.0dip"
+                    android:textSize="@dimen/text_secondary"
+                    android:paddingTop="4.0dip"
+                    android:textColor="@color/text_primary"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
