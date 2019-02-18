@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginViews {
 
-    TextView sign_up;
+    TextView sign_up, sign_up_seekar;
     TextInputEditText username, password;
     ProgressDialog pDialog;
     PreferenceData preferenceData;
@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void onClicklistner() {
         sign_up.setOnClickListener(this);
         sign_in.setOnClickListener(this);
+        sign_up_seekar.setOnClickListener(this);
     }
 
     private void userInterface() {
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         preferenceData = new PreferenceData(this);
         sign_in = (Button) findViewById(R.id.sign_in);
         sign_up = (TextView) findViewById(R.id.sign_up);
+        sign_up_seekar = (TextView) findViewById(R.id.sign_up_seekar);
         username = (TextInputEditText) findViewById(R.id.username);
         password = (TextInputEditText) findViewById(R.id.password);
 
@@ -65,6 +67,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.sign_up:
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                finish();
+                break;
+            case R.id.sign_up_seekar:
+                startActivity(new Intent(getApplicationContext(), SeekarAddActivity.class));
+                finish();
                 break;
             case R.id.sign_in:
                 if(checkNetwork.isNetworkAvailable()){
@@ -111,9 +118,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String mode = jsonObject.getString("mode");
 
             if(message.equalsIgnoreCase("donor login")){
-                preferenceData.setDonorLogin(message);
+                if(mode.equalsIgnoreCase("admin")){
+                    preferenceData.setDonorLogin(message);
+                }
             }else if (message.equalsIgnoreCase("admin login")){
-                preferenceData.setAdminLogin(message);
+                if(mode.equalsIgnoreCase("donor")) {
+                    preferenceData.setAdminLogin(message);
+                }
+            }else if (message.equalsIgnoreCase("seeker login")){
+                if(mode.equalsIgnoreCase("seeker")){
+                    preferenceData.setSeekerLogin(message);
+                }
             }
             Log.d("status-->",status);
             Log.d("message-->",message);
@@ -124,10 +139,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 preferenceData.setLogin(true);
                 preferenceData.setMainScreenOpen(0);
                     if (message.equalsIgnoreCase("admin login")) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), DonorActivity.class));
                         finish();
                     }else if (message.equalsIgnoreCase("head")) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), DonorActivity.class));
                         finish();
                     }
 
@@ -143,13 +158,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                     preferenceData.setAdminLogin(true);
                     preferenceData.setMainScreenOpen(0);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
                     finish();
                 }else if (message.equalsIgnoreCase("donor login")) {
                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                     preferenceData.setLogin(true);
                     preferenceData.setMainScreenOpen(0);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), DonorActivity.class));
                     finish();
 
                     JSONObject jsonObject1 = jsonObject.getJSONObject("donor_data");
@@ -167,7 +182,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             jsonObject1.getString("password"));
 
 
-                }else{
+                }else if(message.equalsIgnoreCase("seeker login")){
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    preferenceData.setSeekerLogin(true);
+                    preferenceData.setMainScreenOpen(0);
+                    startActivity(new Intent(getApplicationContext(), SeekerDashboard.class));
+                    finish();
+                    JSONObject jsonObject2 = jsonObject.getJSONObject("seeker_data");
+                    preferenceData.seekerData(jsonObject2.getString("s_id"),
+                            jsonObject2.getString("sname"),
+                            jsonObject2.getString("age"),
+                            jsonObject2.getString("gender"),
+                            jsonObject2.getString("email"),
+                            jsonObject2.getString("mobile"),
+                            jsonObject2.getString("latitude"),
+                            jsonObject2.getString("longitude"),
+                            jsonObject2.getString("password"),
+                            jsonObject2.getString("status"));
+
+                }
+                else{
                     AppVariables.BACK_BUTTON_GONE = false;
                     finish();
                     Log.d("message---->", message);

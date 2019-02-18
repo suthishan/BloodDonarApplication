@@ -2,10 +2,11 @@ package com.suthishan.blooddonar.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 import com.suthishan.blooddonar.R;
 import com.suthishan.blooddonar.constants.AppUrl;
 import com.suthishan.blooddonar.constants.AppVariables;
-import com.suthishan.blooddonar.model.RegisterModel;
+import com.suthishan.blooddonar.model.SeekerModel;
 import com.suthishan.blooddonar.presenter.RegisterPresenter;
 import com.suthishan.blooddonar.utils.CheckNetwork;
 import com.suthishan.blooddonar.utils.GpsLocationReceiver;
@@ -31,7 +32,7 @@ import net.alexandroid.gps.GpsStatusDetector;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity implements
+public class SeekarAddActivity extends AppCompatActivity implements
         GpsStatusDetector.GpsStatusDetectorCallBack, View.OnClickListener,
         AdapterView.OnItemSelectedListener, RegisterViews {
 
@@ -43,30 +44,21 @@ public class RegisterActivity extends AppCompatActivity implements
     RegisterPresenter registerPresenter;
     ProgressDialog pDialog;
     CheckNetwork checkNetwork;
-    TextInputLayout til_d_name, til_age, til_email, til_mobile;
-    EditText edt_dname, edt_age, edt_email, edt_mobile;
-    Spinner blood_group, gender_list;
+    TextInputLayout til_s_name, til_age, til_email, til_mobile;
+    EditText edt_sname, edt_age, edt_email, edt_mobile;
+    Spinner gender_list;
     Button sign_up;
-    String donarName, donarAge, donarEmail, donarMobile, bloodGroup, genderList;
-    RegisterModel registerModel;
+    String seekerName, seekerAge, seekerEmail, seekerMobile, genderList;
+    SeekerModel seekerModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_seekar_add);
         ActionBar();
         userInterface();
         onClicklistner();
         OnItemSelectedListener();
-    }
-
-    private void OnItemSelectedListener() {
-        blood_group.setOnItemSelectedListener(this);
-        gender_list.setOnItemSelectedListener(this);
-    }
-
-    private void onClicklistner() {
-        sign_up.setOnClickListener(this);
     }
 
     private void userInterface() {
@@ -82,19 +74,17 @@ public class RegisterActivity extends AppCompatActivity implements
         if (mAlreadyStartedService) {
             startService(new Intent(this, LocationMonitoringService.class));
         }
-        til_d_name = (TextInputLayout) findViewById(R.id.til_d_name);
+        til_s_name = (TextInputLayout) findViewById(R.id.til_s_name);
         til_age = (TextInputLayout) findViewById(R.id.til_age);
         til_email = (TextInputLayout) findViewById(R.id.til_email);
         til_mobile = (TextInputLayout) findViewById(R.id.til_mobile);
-        edt_dname = (EditText) findViewById(R.id.edt_dname);
+        edt_sname = (EditText) findViewById(R.id.edt_sname);
         edt_age = (EditText) findViewById(R.id.edt_age);
         edt_email = (EditText) findViewById(R.id.edt_email);
         edt_mobile = (EditText) findViewById(R.id.edt_mobile);
-        blood_group = (Spinner) findViewById(R.id.blood_group);
         gender_list = (Spinner) findViewById(R.id.gender_list);
         sign_up = (Button) findViewById(R.id.sign_up);
     }
-
     private void ActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Register");
@@ -107,19 +97,12 @@ public class RegisterActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onGpsSettingStatus(boolean enabled) {
-        Log.d("TAG", "onGpsSettingStatus: " + enabled);
-        mISGpsStatusDetector = enabled;
-        if(!enabled){
-            mGpsStatusDetector.checkGpsStatus();
-        }
+    private void OnItemSelectedListener() {
+        gender_list.setOnItemSelectedListener(this);
     }
 
-    @Override
-    public void onGpsAlertCanceledByUser() {
-        Log.d("TAG", "onGpsAlertCanceledByUser");
-        startActivity(new Intent(getApplicationContext(),TurnOnGpsLocation.class));
+    private void onClicklistner() {
+        sign_up.setOnClickListener(this);
     }
 
     @Override
@@ -133,42 +116,40 @@ public class RegisterActivity extends AppCompatActivity implements
 
     private void registerValuesSend() {
         edtTextValues();
-        if (donarName.equalsIgnoreCase("")){
-            showAlert("Donar Name is Empty");
-        }else if(donarAge.equalsIgnoreCase("")){
-            showAlert("Donar Age is Empty");
-        }else if (donarEmail.equalsIgnoreCase("")){
-            showAlert("Donar Email is Empty");
-        }else if(donarMobile.equalsIgnoreCase("")){
-            showAlert("Donar Mobile is Empty");
-        }else if(bloodGroup.equalsIgnoreCase("--Select--")){
-            showAlert("Donar Blood Group is Empty");
+        if(seekerName.equalsIgnoreCase("")){
+            showAlert("Seeker Name is Empty");
+        }else if(seekerAge.equalsIgnoreCase("")){
+            showAlert("Seeker Age is Empty");
+        }else if(seekerEmail.equalsIgnoreCase("")){
+            showAlert("Seeker Email is Empty");
+        }else if(seekerMobile.equalsIgnoreCase("")){
+            showAlert("Seeker Mobile is Empty");
         }else if(genderList.equalsIgnoreCase("--Select--")){
             showAlert("Gender is Empty");
-        }else{
-            registerModel = new RegisterModel();
+        }else {
+            seekerModel = new SeekerModel();
             if(checkNetwork.isNetworkAvailable()) {
-                registerModel.setLatitude(AppVariables.NEAR_LATITUDE);
-                registerModel.setLongitude(AppVariables.NEAR_LONGITUDE);
-                registerModel.setDname(donarName);
-                registerModel.setBloodgroup(bloodGroup);
-                registerModel.setAge(donarAge);
-                registerModel.setGender(genderList);
-                registerModel.setEmail(donarEmail);
-                registerModel.setMobile(donarMobile);
-                registerPresenter.registerValue(AppUrl.ADD_DONOR,registerModel);
-
+                seekerModel.setLatitude(AppVariables.NEAR_LATITUDE);
+                seekerModel.setLongitude(AppVariables.NEAR_LONGITUDE);
+                seekerModel.setAge(seekerAge);
+                seekerModel.setEmail(seekerEmail);
+                seekerModel.setMobile(seekerMobile);
+                seekerModel.setGender(genderList);
+                seekerModel.setSname(seekerName);
+                registerPresenter.seekerValue(AppUrl.ADD_SEEKER, seekerModel);
             }else{
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         }
+
+
     }
 
     private void edtTextValues() {
-        donarName = edt_dname.getText().toString();
-        donarAge = edt_age.getText().toString();
-        donarEmail = edt_email.getText().toString();
-        donarMobile = edt_mobile.getText().toString();
+        seekerName = edt_sname.getText().toString();
+        seekerAge = edt_age.getText().toString();
+        seekerEmail = edt_email.getText().toString();
+        seekerMobile = edt_mobile.getText().toString();
     }
 
     private void showAlert(String msg) {
@@ -178,16 +159,11 @@ public class RegisterActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
-            case R.id.blood_group:
-                bloodGroup = parent.getSelectedItem().toString();
-                break;
-
             case R.id.gender_list:
                 genderList = parent.getSelectedItem().toString();
                 break;
-
-
         }
+
     }
 
     @Override
@@ -213,9 +189,18 @@ public class RegisterActivity extends AppCompatActivity implements
             pDialog.cancel();
         }
     }
-
     @Override
     public void registerSuccess(String response) {
+
+    }
+
+    @Override
+    public void regsiterError(String string) {
+
+    }
+
+    @Override
+    public void seekerSuccess(String response) {
         Log.d("Response success",response);
         JSONObject jsonObject = null;
 
@@ -228,34 +213,50 @@ public class RegisterActivity extends AppCompatActivity implements
 
 
             if (status.equalsIgnoreCase("true")){
-                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        finish();
+                String username = jsonObject.getString("username");
+                String password = jsonObject.getString("password");
+//                Toast.makeText(getApplicationContext(),message+"\n"+username+"\n"+password,Toast.LENGTH_LONG).show();
+                final Toast toast = Toast.makeText(getApplicationContext(), message+"\n"+username+"\n"+password, Toast.LENGTH_LONG);
+                toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 19000);
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
             }else {
                 Log.d("message---->", message);
                 Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
             }
 
-
         }catch (JSONException e) {
             e.printStackTrace();
         }
 
-    }
-
-    @Override
-    public void regsiterError(String string) {
-        Log.d("Response success",string);
-        Toast.makeText(getApplicationContext(),string,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void seekerSuccess(String response) {
 
     }
 
     @Override
     public void seekarError(String string) {
+        Log.d("Response success",string);
 
+    }
+
+    @Override
+    public void onGpsSettingStatus(boolean enabled) {
+        Log.d("TAG", "onGpsSettingStatus: " + enabled);
+        mISGpsStatusDetector = enabled;
+        if(!enabled){
+            mGpsStatusDetector.checkGpsStatus();
+        }
+    }
+
+    @Override
+    public void onGpsAlertCanceledByUser() {
+        Log.d("TAG", "onGpsAlertCanceledByUser");
+        startActivity(new Intent(getApplicationContext(),TurnOnGpsLocation.class));
     }
 }

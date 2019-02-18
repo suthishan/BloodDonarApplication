@@ -25,6 +25,9 @@
             android:layout_marginTop="@dimen/spacing_large"
             app:srcCompat="@drawable/logo1"
             android:tint="@android:color/white" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -44,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/spacing_xlarge"
+                    android:layout_marginBottom="@dimen/spacing_large"
                     android:layout_marginTop="@dimen/spacing_middle"
                     android:text="SIGN IN"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -76,7 +79,7 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/spacing_mlarge" />
+                    android:layout_height="@dimen/spacing_large" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -128,7 +131,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="New user? "
+                        android:text="Add Donor? "
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/blue_grey_300" />
 
@@ -144,9 +147,36 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Seekar? "
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_300" />
+
+                    <TextView
+                        android:id="@+id/sign_up_seekar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:text="Sign Up"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/colorPrimaryLight"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
-
+    </ScrollView>
         <View
             android:layout_width="0dp"
             android:layout_height="@dimen/spacing_large" />

@@ -11,54 +11,53 @@ import android.widget.TextView;
 
 import com.suthishan.blooddonar.R;
 import com.suthishan.blooddonar.model.DonorModel;
+import com.suthishan.blooddonar.model.SeekerModel;
 import com.suthishan.blooddonar.utils.CallInterface;
 
 import java.util.List;
 
-public class DonorAdpater extends RecyclerView.Adapter<DonorAdpater.ViewHolder> {
+public class SeekerAdpater extends RecyclerView.Adapter<SeekerAdpater.ViewHolder> {
 
     Activity applicationContext;
     CallInterface callInterface;
-    List<DonorModel.Donor_data> donor_dataList;
 
-    public DonorAdpater(List<DonorModel.Donor_data> donor_data, Activity applicationContext, CallInterface callInterface) {
+    List<SeekerModel.Seeker_data> seeker_data1;
+
+    public SeekerAdpater(List<SeekerModel.Seeker_data> seeker_data,
+                         Activity applicationContext, CallInterface callInterface) {
         this.applicationContext =applicationContext;
-        this.donor_dataList =donor_data;
+        this.seeker_data1 =seeker_data;
         this.callInterface=  callInterface;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_card,parent,false);
-        return new ViewHolder(view);
+    public SeekerAdpater.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_seeker_list,parent,false);
+        return new SeekerAdpater.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final SeekerAdpater.ViewHolder holder, int position) {
 
-        final DonorModel.Donor_data donor_data = donor_dataList.get(position);
-        if(donor_data.getDname().equalsIgnoreCase("null")){
-            holder.txt_donor_name.setText("-");
+        final SeekerModel.Seeker_data seeker_data = seeker_data1.get(position);
+        if(seeker_data.getSname().equalsIgnoreCase("null")){
+            holder.txt_seeker_name.setText("-");
         }else{
-            holder.txt_donor_name.setText(donor_data.getDname());
+            holder.txt_seeker_name.setText(seeker_data.getSname());
         }
-        if(donor_data.getBloodgroup().equalsIgnoreCase("null")){
-            holder.txt_donor_blood_group.setText("-");
+
+        if(seeker_data.getMobile().equalsIgnoreCase("null")){
+            holder.txt_seeker_phone.setText("-");
         }else{
-            holder.txt_donor_blood_group.setText(donor_data.getBloodgroup());
+            holder.txt_seeker_phone.setText(seeker_data.getMobile());
         }
-        if(donor_data.getMobile().equalsIgnoreCase("null")){
-            holder.txt_donor_phone.setText("-");
+        if(seeker_data.getStatus().equalsIgnoreCase("null")){
+            holder.txt_seeker_location.setText("-");
         }else{
-            holder.txt_donor_phone.setText(donor_data.getMobile());
-        }
-        if(donor_data.getStatus().equalsIgnoreCase("null")){
-            holder.txt_donor_location.setText("-");
-        }else{
-            holder.txt_donor_location.setOnClickListener(new View.OnClickListener() {
+            holder.txt_seeker_location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Uri gmmIntentUri = Uri.parse("google.navigation:q="+donor_data.getLatitude()+","+donor_data.getLongitude());
+                    Uri gmmIntentUri = Uri.parse("google.navigation:q="+seeker_data.getLatitude()+","+seeker_data.getLongitude());
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
                     if (mapIntent.resolveActivity(applicationContext.getPackageManager()) != null) {
@@ -68,14 +67,14 @@ public class DonorAdpater extends RecyclerView.Adapter<DonorAdpater.ViewHolder> 
             });
         }
 
-        if(donor_data.getMobile().equalsIgnoreCase("null")){
-            holder.txt_donor_call.setText("-");
+        if(seeker_data.getMobile().equalsIgnoreCase("null")){
+            holder.txt_seeker_call.setText("-");
         }else{
-            holder.txt_donor_call.setOnClickListener(new View.OnClickListener() {
+            holder.txt_seeker_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 //                Toast.makeText(applicationContext.getApplicationContext(),"make call to"+nearByHospitalModel.getPhcMobile()+"", Toast.LENGTH_LONG).show();
-                    callInterface.makeCall(donor_data.getMobile());
+                    callInterface.makeCall(seeker_data.getMobile());
 
                 }
             });
@@ -102,20 +101,21 @@ public class DonorAdpater extends RecyclerView.Adapter<DonorAdpater.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return donor_dataList.size();
+        return seeker_data1.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txt_donor_call, txt_donor_name, txt_donor_blood_group, txt_donor_phone, txt_donor_location;
+        TextView txt_seeker_call, txt_seeker_name,
+                txt_seeker_phone, txt_seeker_location;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txt_donor_name = itemView.findViewById(R.id.txt_donor_name);
-            txt_donor_blood_group = itemView.findViewById(R.id.txt_donor_blood_group);
-            txt_donor_phone = itemView.findViewById(R.id.txt_donor_phone);
-            txt_donor_location = itemView.findViewById(R.id.txt_donor_location);
-            txt_donor_call = itemView.findViewById(R.id.txt_donor_call);
+            txt_seeker_name = itemView.findViewById(R.id.txt_seeker_name);
+
+            txt_seeker_phone = itemView.findViewById(R.id.txt_seeker_phone);
+            txt_seeker_location = itemView.findViewById(R.id.txt_seeker_location);
+            txt_seeker_call = itemView.findViewById(R.id.txt_seeker_call);
         }
     }
 

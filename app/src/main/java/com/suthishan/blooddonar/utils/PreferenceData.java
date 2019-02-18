@@ -23,6 +23,14 @@ public class PreferenceData {
         return  sharedPreferences.getBoolean(AppVariables.USER_LOGIN, Boolean.parseBoolean(""));
     }
 
+    public void setSeekerLogin(boolean isLogin) {
+        sharedPreferences.edit().putBoolean(AppVariables.SEEKER_LOGGGED, isLogin).apply();
+    }
+
+    public boolean getSeekerLoggged() {
+        return  sharedPreferences.getBoolean(AppVariables.SEEKER_LOGGGED, Boolean.parseBoolean(""));
+    }
+
     public void setAdminLogin(boolean isLogin) {
         sharedPreferences.edit().putBoolean(AppVariables.ADMIN_LOGIN_DETAIL, isLogin).apply();
     }
@@ -62,6 +70,13 @@ public class PreferenceData {
         return sharedPreferences.getString(AppVariables.isMainActivityOpen_Count,"");
     }
 
+    public void setSeekerLogin(String message) {
+        sharedPreferences.edit().putString(AppVariables.SEEKER_LOGIN, message).apply();
+    }
+    public String getSeekerLogin(){
+        return  sharedPreferences.getString(AppVariables.SEEKER_LOGIN, "");
+    }
+
     public void setDonorLogin(String message) {
         sharedPreferences.edit().putString(AppVariables.DONOR_LOGIN, message).apply();
     }
@@ -96,6 +111,25 @@ public class PreferenceData {
         sharedPreferences.edit().putString(AppVariables.DONOR_PASSWORD, password).commit();
 
     }
+
+    public void seekerData(String s_id, String sname, String age, String gender, String email,
+                           String mobile, String latitude, String longitude, String password,
+                           String status){
+        sharedPreferences.edit().putString(AppVariables.SEEKER_ID, s_id).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_NAME, sname).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_AGE, age).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_GENDER, gender).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_EMAIL, email).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_MOBILE, mobile).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_LAT, latitude).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_LONG, longitude).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_PASS, password).commit();
+        sharedPreferences.edit().putString(AppVariables.SEEKER_STATUS, status).commit();
+
+    }
+
+
+
     public String getDonorID(){
         return sharedPreferences.getString(AppVariables.DONOR_ID,"");
     }

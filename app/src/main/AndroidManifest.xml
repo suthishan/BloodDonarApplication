@@ -8,14 +8,22 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.StartUpScreen"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.SeekerListActivity"></activity>
+        <activity android:name=".activity.SeekerDashboard" />
+        <activity android:name=".activity.SeekarAddActivity" />
+        <activity
+            android:name=".activity.DashboardActivity"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.DonorActivity" />
+        <activity
+            android:name=".activity.StartUpScreen"
             android:theme="@style/AppTheme1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,22 +36,23 @@
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme1">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <action android:name="android.intent.action.VIEW" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".activity.NoInternetConnection"></activity>
-        <activity android:name=".activity.TurnOnGpsLocation"></activity>
-        <activity android:name=".activity.DonorListActivity"></activity>
-
-
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.NoInternetConnection" />
+        <activity android:name=".activity.TurnOnGpsLocation" />
+        <activity android:name=".activity.DonorListActivity" />
 
         <service android:name=".utils.LocationMonitoringService" />
     </application>

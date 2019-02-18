@@ -5,13 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +22,15 @@ import android.widget.Toast;
 
 import com.suthishan.blooddonar.R;
 import com.suthishan.blooddonar.adpater.DonorAdpater;
+import com.suthishan.blooddonar.adpater.SeekerAdpater;
 import com.suthishan.blooddonar.model.DonorModel;
+import com.suthishan.blooddonar.model.SeekerModel;
 import com.suthishan.blooddonar.presenter.DonorPresenter;
+import com.suthishan.blooddonar.presenter.SeekerPresenter;
 import com.suthishan.blooddonar.utils.CallInterface;
 import com.suthishan.blooddonar.utils.CheckNetwork;
 import com.suthishan.blooddonar.utils.PreferenceData;
-import com.suthishan.blooddonar.views.DonorViews;
+import com.suthishan.blooddonar.views.SeekerViews;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,29 +39,36 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DonorListActivity extends AppCompatActivity implements DonorViews, CallInterface {
+public class SeekerListActivity extends AppCompatActivity implements SeekerViews, CallInterface {
 
     private static final int MAKE_CALL_PERMISSION_REQUEST_CODE = 1;
 
     SwipeRefreshLayout swifeRefresh;
-    RecyclerView rec_donor_list;
+    RecyclerView rec_seeker_list;
     TextView txt_no_records_found;
     ProgressDialog pDialog;
     PreferenceData preferenceData;
-    private List<DonorModel.Donor_data> donor_data;
-    DonorModel.Donor_data donorData;
+    private List<SeekerModel.Seeker_data> seeker_data;
+    SeekerModel.Seeker_data  seekerData;
     boolean isDataUpdate=true;
     CheckNetwork checkNetwork;
-    DonorPresenter donorPresenter;
-    private DonorAdpater donorAdpater;
+    SeekerPresenter seekerPresenter;
+    private SeekerAdpater seekerAdpater;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donor_list);
+        setContentView(R.layout.activity_seeker_list);
         userInterface();
         onClicklistner();
         showActionBar();
+    }
+
+    private void showActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Seeker List");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void onClicklistner() {
@@ -72,51 +81,44 @@ public class DonorListActivity extends AppCompatActivity implements DonorViews, 
         pDialog.setMessage("Please Wait ...");
         checkNetwork = new CheckNetwork(this);
         preferenceData = new PreferenceData(this);
-        donorPresenter = new DonorPresenter(this,this);
+        seekerPresenter = new SeekerPresenter(this,this);
         swifeRefresh = (SwipeRefreshLayout) findViewById(R.id.swifeRefresh);
-        rec_donor_list = (RecyclerView) findViewById(R.id.rec_donor_list);
+        rec_seeker_list = (RecyclerView) findViewById(R.id.rec_seeker_list);
         txt_no_records_found = (TextView) findViewById(R.id.txt_no_records_found);
         if(checkNetwork.isNetworkAvailable()){
-            donorPresenter.getDonorList();
+            seekerPresenter.getSeekerList();
         }else {
             Toast.makeText(getApplicationContext(), "No internet Connection." + checkNetwork.isNetworkAvailable(), Toast.LENGTH_LONG).show();
         }
 
-        donor_data = new ArrayList<>();
+        seeker_data = new ArrayList<>();
         txt_no_records_found.setVisibility(View.GONE);
-        rec_donor_list.setVisibility(View.GONE);
-        rec_donor_list.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(DonorListActivity.this);
-        rec_donor_list.setLayoutManager(mLayoutManager);
-        rec_donor_list.setItemAnimator(new DefaultItemAnimator());
-        if(donorAdpater != null){
-            donorAdpater.notifyDataSetChanged();
+        rec_seeker_list.setVisibility(View.GONE);
+        rec_seeker_list.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(SeekerListActivity.this);
+        rec_seeker_list.setLayoutManager(mLayoutManager);
+        rec_seeker_list.setItemAnimator(new DefaultItemAnimator());
+        if(seekerAdpater != null){
+            seekerAdpater.notifyDataSetChanged();
         }else {
-            donorAdpater = new DonorAdpater(donor_data, DonorListActivity.this, this);
-            rec_donor_list.setAdapter(donorAdpater);
+            seekerAdpater = new SeekerAdpater(seeker_data, SeekerListActivity.this, this);
+            rec_seeker_list.setAdapter(seekerAdpater);
         }
 
-    }
-
-    private void showActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Donor List");
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void showProgress() {
-        if (!DonorListActivity.this.isDataUpdate) {
+        if (!SeekerListActivity.this.isDataUpdate) {
             pDialog.show();
         }
     }
 
+    @Override
+    public void hideProgress() {
+        pDialog.hide();
+
+    }
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -126,13 +128,9 @@ public class DonorListActivity extends AppCompatActivity implements DonorViews, 
     }
 
 
-    @Override
-    public void hideProgress() {
-        pDialog.hide();
-    }
 
     @Override
-    public void donorListSuccess(String response) {
+    public void seekerListSuccess(String response) {
         Log.d("Response success",response);
 
         try {
@@ -140,31 +138,32 @@ public class DonorListActivity extends AppCompatActivity implements DonorViews, 
             String status = mJsnobject.getString("status");
             if (status.equalsIgnoreCase("true")) {
                 txt_no_records_found.setVisibility(View.GONE);
-                rec_donor_list.setVisibility(View.VISIBLE);
-                JSONArray jsonArray = mJsnobject.getJSONArray("donor_data");
+                rec_seeker_list.setVisibility(View.VISIBLE);
+                JSONArray jsonArray = mJsnobject.getJSONArray("seeker_data");
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    donorData = new DonorModel.Donor_data();
+                    seekerData = new SeekerModel.Seeker_data();
 
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    donorData.setDname(jsonObject.getString("dname"));
-                    donorData.setBloodgroup(jsonObject.getString("bloodgroup"));
-                    donorData.setMobile(jsonObject.getString("mobile"));
-                    donorData.setStatus(jsonObject.getString("status"));
-                    donorData.setAge(jsonObject.getString("age"));
-                    donorData.setD_id(jsonObject.getInt("d_id"));
-                    donorData.setLatitude(jsonObject.getString("latitude"));
-                    donorData.setLongitude(jsonObject.getString("longitude"));
-                    donorData.setEmail(jsonObject.getString("email"));
-                    donorData.setGender(jsonObject.getString("gender"));
+                    seekerData.setSname(jsonObject.getString("sname"));
+                    seekerData.setS_id(Integer.parseInt(jsonObject.getString("s_id")));
+                    seekerData.setAge(jsonObject.getString("age"));
+                    seekerData.setEmail(jsonObject.getString("email"));
+                    seekerData.setGender(jsonObject.getString("gender"));
+                    seekerData.setMobile(jsonObject.getString("mobile"));
+                    seekerData.setLatitude(jsonObject.getString("latitude"));
+                    seekerData.setLongitude(jsonObject.getString("longitude"));
+                    seekerData.setStatus(jsonObject.getString("status"));
+                    seekerData.setPassword(jsonObject.getString("password"));
+
 //                mNearbyList.clear();
-                    donor_data.add(donorData);
-                    donorAdpater.notifyDataSetChanged();
+                    seeker_data.add(seekerData);
+                    seekerAdpater.notifyDataSetChanged();
                     pDialog.hide();
                 }
             }
             else{
                 txt_no_records_found.setVisibility(View.VISIBLE);
-                rec_donor_list.setVisibility(View.GONE);
+                rec_seeker_list.setVisibility(View.GONE);
 
             }
         }catch (JSONException e) {
@@ -175,8 +174,15 @@ public class DonorListActivity extends AppCompatActivity implements DonorViews, 
     }
 
     @Override
-    public void donorListError(String string) {
+    public void seekerListError(String string) {
         Log.d("Response success",string);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -192,9 +198,8 @@ public class DonorListActivity extends AppCompatActivity implements DonorViews, 
             startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:+"+response)));
         }
     }
-
     private void requestCallPermission() {
-        Log.i(DonorListActivity.class.getSimpleName(), "CALL permission has NOT been granted. Requesting permission.");
+        Log.i(SeekerListActivity.class.getSimpleName(), "CALL permission has NOT been granted. Requesting permission.");
 
         // BEGIN_INCLUDE(camera_permission_request)
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,

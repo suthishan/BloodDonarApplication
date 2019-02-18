@@ -11,7 +11,7 @@ import com.suthishan.blooddonar.R;
 import com.suthishan.blooddonar.constants.AppVariables;
 import com.suthishan.blooddonar.utils.PreferenceData;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class DonorActivity extends AppCompatActivity implements View.OnClickListener {
 
     PreferenceData preferenceData;
     LinearLayout blood_transfer,admin_hide,donor_list;
@@ -22,9 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preferenceData = new PreferenceData(this);
-        blood_transfer = (LinearLayout) findViewById(R.id.blood_transfer);
-        admin_hide = (LinearLayout) findViewById(R.id.admin_hide);
-        donor_list = (LinearLayout) findViewById(R.id.donor_list);
+
         username = (TextView) findViewById(R.id.username);
         txt_mobile = (TextView) findViewById(R.id.txt_mobile);
         txt_age = (TextView) findViewById(R.id.txt_age);
@@ -34,12 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 preferenceData.setMainScreenOpen(1);
             }
         }
-        if(preferenceData.getAdminLoginDetails()){
-            blood_transfer.setVisibility(View.VISIBLE);
-            admin_hide.setVisibility(View.GONE);
-            username.setText("Welcome Admin");
-
-        }else if (preferenceData.getLogin()){
+        if (preferenceData.getLogin()){
             admin_hide.setVisibility(View.VISIBLE);
             username.setText("Welcome "+preferenceData.getDonorName());
             txt_mobile.setText(preferenceData.getDonorMobile());

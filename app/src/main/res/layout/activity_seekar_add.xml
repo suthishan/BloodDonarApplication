@@ -27,7 +27,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Register your Details"
+                    android:text="Register your Seeker Details"
                     android:textAlignment="textStart"
                     android:textSize="@dimen/text_label"
                     android:textColor="#2F80ED"
@@ -81,49 +81,19 @@
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/til_d_name">
+                            android:id="@+id/til_s_name">
 
                             <EditText
-                                android:id="@+id/edt_dname"
+                                android:id="@+id/edt_sname"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black30"
                                 android:textSize="@dimen/text_head"
-                                android:hint="Enter Donar Name"/>
+                                android:hint="Enter Seekar Name"/>
 
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="5dp"
-                        android:weightSum="2">
-
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Blood Group"
-                            android:textColor="@color/text_header"
-                            android:textSize="@dimen/text_head"
-                            android:textStyle="bold"
-                            android:layout_weight="1"/>
-
-                        <Spinner
-                            android:id="@+id/blood_group"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_header"
-                            android:textSize="@dimen/text_secondary"
-                            android:layout_weight="1"
-                            android:drawSelectorOnTop="true"
-                            android:entries="@array/blood_group_list"
-                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-                    </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"

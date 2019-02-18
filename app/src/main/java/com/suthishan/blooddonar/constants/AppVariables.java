@@ -10,11 +10,13 @@ public class AppVariables {
     public static final String CURENT_LON = "";
 
     public static final String DONOR_LOGIN = "";
+    public static final String SEEKER_LOGIN = "";
     public static final String ADMIN_LOGIN = "";
 
 
 
     public static final String USER_LOGIN = "user_login";
+    public static final String SEEKER_LOGGGED = "SEEKER_login";
     public static final String ADMIN_LOGIN_DETAIL = "admin_login";
     public static String LATITUDE = "";
     public static String LONGITUDE = "";
@@ -41,6 +43,19 @@ public class AppVariables {
     public static final String DONOR_MOBILE = "mobile";
     public static final String DONOR_STATUS = "status";
     public static final String DONOR_PASSWORD = "password";
+
+    //seeker details save
+    public static final String SEEKER_ID = "s_id";
+    public static final String SEEKER_NAME = "sname";
+    public static final String SEEKER_AGE = "age";
+    public static final String SEEKER_GENDER = "gender";
+    public static final String SEEKER_EMAIL = "email";
+    public static final String SEEKER_MOBILE = "mobile";
+    public static final String SEEKER_LAT = "latitude";
+    public static final String SEEKER_LONG = "longitude";
+    public static final String SEEKER_PASS = "password";
+    public static final String SEEKER_STATUS = "status";
+
 
 
 

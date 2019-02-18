@@ -5,4 +5,7 @@ public interface RegisterViews {
     void hideProgress();
     void registerSuccess(String response);
     void regsiterError(String string);
+
+    void seekerSuccess(String response);
+    void seekarError(String string);
 }

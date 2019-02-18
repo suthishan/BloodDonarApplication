@@ -147,11 +147,15 @@ public class StartUpScreen extends AppCompatActivity implements GoogleApiClient.
 
         if (preferenceData.getAdminLoginDetails()){
             preferenceData.setMainScreenOpen(0);
-            Intent i = new Intent(StartUpScreen.this, MainActivity.class);
+            Intent i = new Intent(StartUpScreen.this, DashboardActivity.class);
+            startActivity(i);
+        }else if(preferenceData.getSeekerLoggged()){
+            preferenceData.setMainScreenOpen(0);
+            Intent i = new Intent(StartUpScreen.this, SeekerDashboard.class);
             startActivity(i);
         } else if(preferenceData.getLogin()){
             preferenceData.setMainScreenOpen(0);
-            Intent i = new Intent(StartUpScreen.this, MainActivity.class);
+            Intent i = new Intent(StartUpScreen.this, DonorActivity.class);
             startActivity(i);
 
         } else{
@@ -193,11 +197,15 @@ public class StartUpScreen extends AppCompatActivity implements GoogleApiClient.
             public void run() {
                 if(preferenceData.getAdminLoginDetails()){
                     preferenceData.setMainScreenOpen(0);
-                    Intent i = new Intent(StartUpScreen.this, MainActivity.class);
+                    Intent i = new Intent(StartUpScreen.this, DashboardActivity.class);
+                    startActivity(i);
+                }else if(preferenceData.getSeekerLoggged()){
+                    preferenceData.setMainScreenOpen(0);
+                    Intent i = new Intent(StartUpScreen.this, SeekerDashboard.class);
                     startActivity(i);
                 }else if (preferenceData.getLogin()) {
                     preferenceData.setMainScreenOpen(0);
-                    Intent i = new Intent(StartUpScreen.this, MainActivity.class);
+                    Intent i = new Intent(StartUpScreen.this, DonorActivity.class);
                     startActivity(i);
                 } else {
                     preferenceData.setMainScreenOpen(0);
