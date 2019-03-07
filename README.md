@@ -1,4 +1,4 @@
-# BloodDonarApplication
+# Blood Donar Application
 Android app connected to a database of the blood donor. 
 The android app is a community between people who need blood and who are willing to donate blood. 
 If you are willing to be a donor all you have to do is to go to the "Be a Donor page and fill the 
