@@ -2,6 +2,7 @@ package com.suthishan.blooddonar.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.suthishan.blooddonar.R;
 import com.suthishan.blooddonar.constants.AppVariables;
@@ -25,11 +27,13 @@ public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     PreferenceData preferenceData;
-    LinearLayout blood_transfer,admin_hide,donor_list,seekerlist;
+    LinearLayout blood_transfer,donor_list,seekerlist;
 
     TextView username,txt_mobile,txt_age;
     ImageView imageView;
     TextView username_nav,email;
+    boolean doubleBackToExitPressedOnce = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,6 @@ public class DashboardActivity extends AppCompatActivity
 
         preferenceData = new PreferenceData(this);
         blood_transfer = (LinearLayout) findViewById(R.id.blood_transfer);
-        admin_hide = (LinearLayout) findViewById(R.id.admin_hide);
         donor_list = (LinearLayout) findViewById(R.id.donor_list);
         seekerlist = (LinearLayout) findViewById(R.id.seekerlist);
         username = (TextView) findViewById(R.id.username);
@@ -60,15 +63,7 @@ public class DashboardActivity extends AppCompatActivity
         }
         if(preferenceData.getAdminLoginDetails()){
             blood_transfer.setVisibility(View.VISIBLE);
-            admin_hide.setVisibility(View.GONE);
             username.setText("Welcome Admin");
-
-        }else if (preferenceData.getLogin()){
-            admin_hide.setVisibility(View.VISIBLE);
-            username.setText("Welcome "+preferenceData.getDonorName());
-            txt_mobile.setText(preferenceData.getDonorMobile());
-            txt_age.setText(preferenceData.getDonorIAGE());
-            blood_transfer.setVisibility(View.GONE);
         }
     }
 
@@ -97,9 +92,25 @@ public class DashboardActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        } else if(doubleBackToExitPressedOnce){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
+            startActivity(intent);
+            finish();
+            System.exit(0);
+            return;
         }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     @Override
@@ -135,9 +146,12 @@ public class DashboardActivity extends AppCompatActivity
             finish();
             // Handle the camera action
         } else if (id == R.id.nav_seekar_list) {
+            startActivity(new Intent(getApplicationContext(), SeekerListActivity.class));
+            finish();
 
         }else if (id == R.id.log_out) {
-
+            preferenceData.setAdminLogin(false);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -156,4 +170,5 @@ public class DashboardActivity extends AppCompatActivity
                 break;
         }
     }
+
 }

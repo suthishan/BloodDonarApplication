@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".activity.SeekerDashboard">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <include
+        layout="@layout/seeker_card"/>
+
+        <Button
+            android:id="@+id/request_blood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:background="@drawable/btn_rounded_accent"
+            android:text="Request Blood"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

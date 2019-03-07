@@ -180,6 +180,26 @@ public class SeekerListActivity extends AppCompatActivity implements SeekerViews
     }
 
     @Override
+    public void requestbloodSuccess(String response) {
+
+    }
+
+    @Override
+    public void requestbloodError(String string) {
+
+    }
+
+    @Override
+    public void sendRequestSuccess(String response) {
+
+    }
+
+    @Override
+    public void sendReqeustError(String error) {
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);

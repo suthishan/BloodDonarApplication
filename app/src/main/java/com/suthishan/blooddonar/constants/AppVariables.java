@@ -43,6 +43,8 @@ public class AppVariables {
     public static final String DONOR_MOBILE = "mobile";
     public static final String DONOR_STATUS = "status";
     public static final String DONOR_PASSWORD = "password";
+    public static final String LAST_BLOOD_DATE = "last_blood_donated_date";
+
 
     //seeker details save
     public static final String SEEKER_ID = "s_id";

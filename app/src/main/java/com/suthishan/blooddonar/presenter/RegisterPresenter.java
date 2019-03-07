@@ -12,6 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.suthishan.blooddonar.constants.AppUrl;
 import com.suthishan.blooddonar.constants.AppVariables;
 import com.suthishan.blooddonar.interactor.RegisterInteractor;
+import com.suthishan.blooddonar.model.AddSeekerModel;
 import com.suthishan.blooddonar.model.RegisterModel;
 import com.suthishan.blooddonar.model.SeekerModel;
 import com.suthishan.blooddonar.views.RegisterViews;
@@ -91,7 +92,7 @@ public class RegisterPresenter implements RegisterInteractor {
     }
 
     @Override
-    public void seekerValue(String seekerUrl, final SeekerModel seekerModel) {
+    public void seekerValue(String seekerUrl, final AddSeekerModel seekerModel) {
         registerViews.showProgress();
 
         String urlcall = "https://bloodproject.azurewebsites.net/api/Home/"+seekerUrl+"?lat="+ AppVariables.NEAR_LATITUDE +"&long="+AppVariables.NEAR_LONGITUDE+"&sname="+seekerModel.getSname()+"&age="+seekerModel.getAge()+"&gender="+seekerModel.getGender()+"&email="+seekerModel.getEmail()+"&mobile="+seekerModel.getMobile();

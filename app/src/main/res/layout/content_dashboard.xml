@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:text="@string/donor_list"
+                    android:text="Donor List"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
             </LinearLayout>
 

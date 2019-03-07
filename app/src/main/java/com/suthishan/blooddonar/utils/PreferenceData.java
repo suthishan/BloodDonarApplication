@@ -96,7 +96,7 @@ public class PreferenceData {
     public void userData(String d_id, String dname, String age,
                          String bloodgroup, String gender, String latitude,
                          String longitude, String email, String mobile,
-                         String status, String password) {
+                         String status, String password, String last_blood_donated_date) {
 
         sharedPreferences.edit().putString(AppVariables.DONOR_ID, d_id).commit();
         sharedPreferences.edit().putString(AppVariables.DONOR_NAME, dname).commit();
@@ -109,6 +109,7 @@ public class PreferenceData {
         sharedPreferences.edit().putString(AppVariables.DONOR_MOBILE, mobile).commit();
         sharedPreferences.edit().putString(AppVariables.DONOR_STATUS, status).commit();
         sharedPreferences.edit().putString(AppVariables.DONOR_PASSWORD, password).commit();
+        sharedPreferences.edit().putString(AppVariables.LAST_BLOOD_DATE, last_blood_donated_date).commit();
 
     }
 
@@ -129,7 +130,7 @@ public class PreferenceData {
     }
 
 
-
+    //onor Data get
     public String getDonorID(){
         return sharedPreferences.getString(AppVariables.DONOR_ID,"");
     }
@@ -154,4 +155,44 @@ public class PreferenceData {
     public String getDonorMobile(){
         return sharedPreferences.getString(AppVariables.DONOR_MOBILE,"");
     }
+    public String getLastDonateDate(){
+        return sharedPreferences.getString(AppVariables.LAST_BLOOD_DATE,"");
+    }
+
+
+    //seeker data get
+
+    public String getseekerID(){
+        return sharedPreferences.getString(AppVariables.SEEKER_ID,"");
+    }
+
+    public String getseekerName(){
+        return sharedPreferences.getString(AppVariables.SEEKER_NAME,"");
+    }
+    public String getseekerAge(){
+        return sharedPreferences.getString(AppVariables.SEEKER_AGE,"");
+    }
+
+    public String getseekerGender(){
+        return sharedPreferences.getString(AppVariables.SEEKER_GENDER,"");
+    }
+
+    public String getseekerEmail(){
+        return sharedPreferences.getString(AppVariables.SEEKER_EMAIL,"");
+    }
+
+    public String getseekerMobile(){
+        return sharedPreferences.getString(AppVariables.SEEKER_MOBILE,"");
+    }
+
+    public String getseekerStatus(){
+        return sharedPreferences.getString(AppVariables.SEEKER_STATUS,"");
+    }
+
+
+
+
+
+
+
 }

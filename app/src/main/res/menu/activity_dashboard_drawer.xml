@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_seekar_list"
             android:icon="@drawable/blood_seekar"
-            android:title="Seekar List" />
+            android:title="User List" />
     </group>
 
     <item android:title="Settings">

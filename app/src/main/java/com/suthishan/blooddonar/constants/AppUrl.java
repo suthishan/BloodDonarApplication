@@ -14,6 +14,10 @@ public class AppUrl {
 
     public static final String SEEKER_LIST = "seeker_list";
 
+    public static final String SEEKER_REQUEST_BLOOD = "request_blood";
+
+    public static final String REQUEST_BLOOD = "blood_req_to_donor";
+
 
 
 }

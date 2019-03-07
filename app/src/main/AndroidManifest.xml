@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SeekerListActivity"></activity>
+        <activity android:name=".activity.RequestBlood"></activity>
+        <activity android:name=".activity.SeekerListActivity" />
         <activity android:name=".activity.SeekerDashboard" />
         <activity android:name=".activity.SeekarAddActivity" />
         <activity

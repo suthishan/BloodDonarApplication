@@ -1,9 +1,17 @@
 package com.suthishan.blooddonar.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,6 +57,9 @@ public class RegisterActivity extends AppCompatActivity implements
     Button sign_up;
     String donarName, donarAge, donarEmail, donarMobile, bloodGroup, genderList;
     RegisterModel registerModel;
+    int icon = R.drawable.logo1;
+    int mNotificationId = 001;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,18 +234,44 @@ public class RegisterActivity extends AppCompatActivity implements
             jsonObject = new JSONObject(response);
             String status = jsonObject.getString("status");
             String message = jsonObject.getString("message");
+            Toast.makeText(getApplicationContext(), message,
+                    Toast.LENGTH_SHORT).show();
+
             Log.d("status-->",status);
             Log.d("message-->",message);
-
-
-            if (status.equalsIgnoreCase("true")){
-                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+            if(((status.equalsIgnoreCase("false")) &&
+                    (message.equalsIgnoreCase("Latitude Required")) )) {
+                Toast.makeText(getApplicationContext(), "Latitude Required",
+                        Toast.LENGTH_SHORT).show();
+            }else if(((status.equalsIgnoreCase("false")) ||
+                    (message.equalsIgnoreCase("Donor Already Exist")))){
+                Toast.makeText(getApplicationContext(), "Donor Already Exist",
+                        Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            }
+            else if (status.equalsIgnoreCase("true")){
+                String user = jsonObject.getString("username");
+                String pass = jsonObject.getString("password");
+                final Toast toast = Toast.makeText(getApplicationContext(),message+"\n"+"Username - "+user+"\n"+"Password - "+pass,
+                        Toast.LENGTH_LONG);
+                toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 19000);
+               /* Toast.makeText(getApplicationContext(),message+"\n"+"Username - "+user+"\n"+"Password - "+pass,
+                        Toast.LENGTH_LONG).show();*/
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         finish();
             }else {
                 Log.d("message---->", message);
-                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
             }
+
 
 
         }catch (JSONException e) {

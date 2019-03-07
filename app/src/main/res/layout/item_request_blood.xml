@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8.0dip"
+        android:orientation="vertical"
+        android:padding="16.0dip"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="3.0dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="37"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="96.0dip"
+                    android:layout_height="80.0dip"
+                    android:layout_gravity="start"
+                    android:contentDescription="Card name"
+                    android:padding="12.0dip"
+                    app:srcCompat="@drawable/user" />
+
+                <TextView
+                    android:id="@+id/txt_donor_call"
+                    android:layout_width="96.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4.0dip"
+                    android:layout_marginRight="4.0dip"
+                    android:layout_marginBottom="4.0dip"
+                    android:background="#80a165"
+                    android:gravity="center"
+                    android:padding="4.0dip"
+                    android:text="Call"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_secondary"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1.0dip"
+                android:layout_height="fill_parent"
+                android:alpha="0.2"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="19"
+                android:minHeight="100.0dip"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_donor_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8.0dip"
+                    android:paddingTop="4.0dip"
+                    android:paddingRight="8.0dip"
+                    android:paddingBottom="4.0dip"
+                    android:text="Donar Name"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_secondary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_donor_blood_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8.0dip"
+                    android:paddingTop="4.0dip"
+                    android:paddingRight="8.0dip"
+                    android:paddingBottom="4.0dip"
+                    android:text="Donar Blood Group"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_secondary" />
+
+                <TextView
+                    android:id="@+id/txt_donor_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8.0dip"
+                    android:paddingTop="4.0dip"
+                    android:paddingRight="8.0dip"
+                    android:paddingBottom="4.0dip"
+                    android:text="Donar Phone"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_secondary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_donor_location"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_place_16dp"
+                    android:drawablePadding="4.0dip"
+                    android:paddingLeft="8.0dip"
+                    android:paddingTop="4.0dip"
+                    android:paddingRight="8.0dip"
+                    android:paddingBottom="4.0dip"
+                    android:text="location"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_secondary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:id="@+id/request_donor_blood"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/request_send" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

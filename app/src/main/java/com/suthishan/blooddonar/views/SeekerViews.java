@@ -5,4 +5,10 @@ public interface SeekerViews {
     void hideProgress();
     void seekerListSuccess(String response);
     void seekerListError(String string);
+
+    void requestbloodSuccess(String response);
+    void requestbloodError(String string);
+
+    void sendRequestSuccess(String response);
+    void sendReqeustError(String error);
 }

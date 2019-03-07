@@ -2,7 +2,10 @@ package com.suthishan.blooddonar.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +18,17 @@ import com.suthishan.blooddonar.R;
 import com.suthishan.blooddonar.constants.AppVariables;
 import com.suthishan.blooddonar.presenter.LoginPresenter;
 import com.suthishan.blooddonar.utils.CheckNetwork;
+import com.suthishan.blooddonar.utils.GpsLocationReceiver;
+import com.suthishan.blooddonar.utils.LocationMonitoringService;
 import com.suthishan.blooddonar.utils.PreferenceData;
 import com.suthishan.blooddonar.views.LoginViews;
+
+import net.alexandroid.gps.GpsStatusDetector;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginViews {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginViews, GpsStatusDetector.GpsStatusDetectorCallBack {
 
     TextView sign_up, sign_up_seekar;
     TextInputEditText username, password;
@@ -31,6 +38,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button sign_in;
     String userName, passWord;
     CheckNetwork checkNetwork;
+    private boolean mAlreadyStartedService = false;
+    GpsLocationReceiver gpsReceiver;
+    private GpsStatusDetector mGpsStatusDetector;
+    boolean mISGpsStatusDetector;
+    boolean doubleBackToExitPressedOnce = false;
+
 
 
     @Override
@@ -51,6 +64,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
         pDialog.setMessage("Please Wait ...");
+        gpsReceiver = new GpsLocationReceiver();
+        mGpsStatusDetector = new GpsStatusDetector(this);
+        mGpsStatusDetector.checkGpsStatus();
+        if (mAlreadyStartedService) {
+            startService(new Intent(this, LocationMonitoringService.class));
+        }
         checkNetwork = new CheckNetwork(this);
         loginPresenter = new LoginPresenter(this, this);
         preferenceData = new PreferenceData(this);
@@ -118,11 +137,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String mode = jsonObject.getString("mode");
 
             if(message.equalsIgnoreCase("donor login")){
-                if(mode.equalsIgnoreCase("admin")){
+                if(mode.equalsIgnoreCase("donor")){
                     preferenceData.setDonorLogin(message);
                 }
             }else if (message.equalsIgnoreCase("admin login")){
-                if(mode.equalsIgnoreCase("donor")) {
+                if(mode.equalsIgnoreCase("admin")) {
                     preferenceData.setAdminLogin(message);
                 }
             }else if (message.equalsIgnoreCase("seeker login")){
@@ -179,7 +198,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             jsonObject1.getString("email"),
                             jsonObject1.getString("mobile"),
                             jsonObject1.getString("status"),
-                            jsonObject1.getString("password"));
+                            jsonObject1.getString("password"),
+                            jsonObject1.getString("last_blood_donated_date"));
 
 
                 }else if(message.equalsIgnoreCase("seeker login")){
@@ -223,7 +243,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void onBackPressed() {
+        if(doubleBackToExitPressedOnce){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
+            startActivity(intent);
+            finish();
+            System.exit(0);
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+
+    }
+
+    @Override
     public void loginError(String string) {
         Log.d("Response success",string);
+    }
+
+    @Override
+    public void onGpsSettingStatus(boolean enabled) {
+        Log.d("TAG", "onGpsSettingStatus: " + enabled);
+        mISGpsStatusDetector = enabled;
+        if(!enabled){
+            mGpsStatusDetector.checkGpsStatus();
+        }
+    }
+
+    @Override
+    public void onGpsAlertCanceledByUser() {
+        Log.d("TAG", "onGpsAlertCanceledByUser");
+        startActivity(new Intent(getApplicationContext(),TurnOnGpsLocation.class));
     }
 }

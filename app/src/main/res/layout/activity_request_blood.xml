@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/request_blood"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:padding="5dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request Blood"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/text_label"
+                    android:textColor="#2F80ED"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingTop="4.0dip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_gravity="center"
+                android:background="@drawable/header_line"
+                android:layout_width="match_parent"
+                android:layout_height="5.0dp"
+                android:layout_weight="1.0"
+                android:layerType="software" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:id="@+id/email_login_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Blood Group"
+                            android:textColor="@color/text_header"
+                            android:textSize="@dimen/text_head"
+                            android:textStyle="bold"
+                            android:layout_weight="1"/>
+
+                        <Spinner
+                            android:id="@+id/blood_group"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_header"
+                            android:textSize="@dimen/text_secondary"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/blood_group_list"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:background="@drawable/btn_rounded_accent"
+                        android:text="Submit"
+                        android:textColor="@android:color/white" />
+
+
+                    <!--<Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_rounded_primary"
+                        android:text="ADD_DONOR WITH FACEBOOK"
+                        android:textColor="@android:color/white" />-->
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/donor_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:padding="5dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Donor List"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/text_label"
+                    android:textColor="#2F80ED"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingTop="4.0dip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_gravity="center"
+                android:background="@drawable/header_line"
+                android:layout_width="match_parent"
+                android:layout_height="5.0dp"
+                android:layout_weight="1.0"
+                android:layerType="software" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swifeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rec_donotlist">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <TextView
+                android:id="@+id/txt_no_records_found"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_recordes_found"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,9 +1,16 @@
 package com.suthishan.blooddonar.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +26,7 @@ import android.widget.Toast;
 import com.suthishan.blooddonar.R;
 import com.suthishan.blooddonar.constants.AppUrl;
 import com.suthishan.blooddonar.constants.AppVariables;
+import com.suthishan.blooddonar.model.AddSeekerModel;
 import com.suthishan.blooddonar.model.SeekerModel;
 import com.suthishan.blooddonar.presenter.RegisterPresenter;
 import com.suthishan.blooddonar.utils.CheckNetwork;
@@ -49,7 +57,10 @@ public class SeekarAddActivity extends AppCompatActivity implements
     Spinner gender_list;
     Button sign_up;
     String seekerName, seekerAge, seekerEmail, seekerMobile, genderList;
-    SeekerModel seekerModel;
+    AddSeekerModel seekerModel;
+    int icon = R.mipmap.ic_launcher;
+    int mNotificationId = 001;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +81,7 @@ public class SeekarAddActivity extends AppCompatActivity implements
         preferenceData = new PreferenceData(this);
         gpsReceiver = new GpsLocationReceiver();
         mGpsStatusDetector = new GpsStatusDetector(this);
+        intent = new Intent(this,LoginActivity.class);
         mGpsStatusDetector.checkGpsStatus();
         if (mAlreadyStartedService) {
             startService(new Intent(this, LocationMonitoringService.class));
@@ -127,7 +139,7 @@ public class SeekarAddActivity extends AppCompatActivity implements
         }else if(genderList.equalsIgnoreCase("--Select--")){
             showAlert("Gender is Empty");
         }else {
-            seekerModel = new SeekerModel();
+            seekerModel = new AddSeekerModel();
             if(checkNetwork.isNetworkAvailable()) {
                 seekerModel.setLatitude(AppVariables.NEAR_LATITUDE);
                 seekerModel.setLongitude(AppVariables.NEAR_LONGITUDE);
@@ -216,7 +228,7 @@ public class SeekarAddActivity extends AppCompatActivity implements
                 String username = jsonObject.getString("username");
                 String password = jsonObject.getString("password");
 //                Toast.makeText(getApplicationContext(),message+"\n"+username+"\n"+password,Toast.LENGTH_LONG).show();
-                final Toast toast = Toast.makeText(getApplicationContext(), message+"\n"+username+"\n"+password, Toast.LENGTH_LONG);
+                final Toast toast = Toast.makeText(getApplicationContext(), message+"\n"+"Username - "+username+"\n"+"Password - "+password, Toast.LENGTH_LONG);
                 toast.show();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -225,10 +237,38 @@ public class SeekarAddActivity extends AppCompatActivity implements
                         toast.cancel();
                     }
                 }, 19000);
+
+               /* PendingIntent resultPendingIntent =
+                        PendingIntent.getActivity(
+                                getApplicationContext(),
+                                0,
+                                intent,
+                                PendingIntent.FLAG_CANCEL_CURRENT
+                        );
+
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                        getApplicationContext());
+                Notification notification = mBuilder.setSmallIcon(icon).setTicker("Red Share").setWhen(0)
+                        .setAutoCancel(true)
+                        .setContentTitle("Red Share")
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(message+username+password))
+                        .setContentIntent(resultPendingIntent)
+                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                        .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.ic_launcher))
+                        .setContentText(message+username+password).build();
+
+                NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(mNotificationId, notification);*/
+
+
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }else {
                 Log.d("message---->", message);
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+            }
+
+            if(status.equalsIgnoreCase("false")){
                 Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
             }
 
