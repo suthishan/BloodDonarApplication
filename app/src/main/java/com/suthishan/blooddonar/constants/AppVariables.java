@@ -44,6 +44,8 @@ public class AppVariables {
     public static final String DONOR_STATUS = "status";
     public static final String DONOR_PASSWORD = "password";
     public static final String LAST_BLOOD_DATE = "last_blood_donated_date";
+    public static final String BLOOD_REQUEST = "blood_request";
+    public static final String REQ_FROM = "req_from";
 
 
     //seeker details save

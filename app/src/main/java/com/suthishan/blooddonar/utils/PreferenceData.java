@@ -96,7 +96,8 @@ public class PreferenceData {
     public void userData(String d_id, String dname, String age,
                          String bloodgroup, String gender, String latitude,
                          String longitude, String email, String mobile,
-                         String status, String password, String last_blood_donated_date) {
+                         String status, String password, String last_blood_donated_date,
+                         String blood_request, String req_from) {
 
         sharedPreferences.edit().putString(AppVariables.DONOR_ID, d_id).commit();
         sharedPreferences.edit().putString(AppVariables.DONOR_NAME, dname).commit();
@@ -110,6 +111,8 @@ public class PreferenceData {
         sharedPreferences.edit().putString(AppVariables.DONOR_STATUS, status).commit();
         sharedPreferences.edit().putString(AppVariables.DONOR_PASSWORD, password).commit();
         sharedPreferences.edit().putString(AppVariables.LAST_BLOOD_DATE, last_blood_donated_date).commit();
+        sharedPreferences.edit().putString(AppVariables.BLOOD_REQUEST, blood_request).commit();
+        sharedPreferences.edit().putString(AppVariables.REQ_FROM, req_from).commit();
 
     }
 
@@ -158,6 +161,12 @@ public class PreferenceData {
     public String getLastDonateDate(){
         return sharedPreferences.getString(AppVariables.LAST_BLOOD_DATE,"");
     }
+
+    public String getDonorRequest(){
+        return sharedPreferences.getString(AppVariables.BLOOD_REQUEST,"");
+    }
+
+
 
 
     //seeker data get

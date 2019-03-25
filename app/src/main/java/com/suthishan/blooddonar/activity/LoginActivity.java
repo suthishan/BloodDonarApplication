@@ -198,7 +198,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             jsonObject1.getString("mobile"),
                             jsonObject1.getString("status"),
                             jsonObject1.getString("password"),
-                            jsonObject1.getString("last_blood_donated_date"));
+                            jsonObject1.getString("last_blood_donated_date"),
+                            jsonObject1.getString("blood_request"),
+                            jsonObject1.getString("req_from"));
 
 
                 }else if(message.equalsIgnoreCase("seeker login")){

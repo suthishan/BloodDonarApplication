@@ -72,4 +72,50 @@ public class DonorPresenter implements DonorInteractor {
         VolleySingleton.getInstance(activity).addToRequestQueue(strReq);
         VolleySingleton.getInstance(activity).getRequestQueue().getCache().remove(url);
     }
+
+    @Override
+    public void donorAcceptDecline(String d_id, String message) {
+        donorViews.showProgress();
+
+        String url = AppUrl.BASE_URL + AppUrl.DONOR_LIST;
+
+
+        String urlcall = "https://bloodproject.azurewebsites.net/api/Home/"+AppUrl.ACCEPT_DECLINE+"?d_id="+d_id+"&decision="+message;
+
+        Log.e("urlcall-->",urlcall);
+
+        StringRequest strReq = new StringRequest(Request.Method.GET, urlcall, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                donorViews.hideProgress();
+                Log.d("success",response);
+                donorViews.donorListSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                donorViews.hideProgress();
+                Log.d(" error",error.toString());
+                donorViews.donorListError(error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String credentials = "admin" + ":" + "1234";
+                String base64EncodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.DEFAULT);
+                HashMap<String, String> header = new HashMap<>();
+//                header.put("Content-Type", "application/x-www-from-urlencoded; charset=utf-8");
+                header.put("Authorization", "Basic " + base64EncodedCredentials);
+                Log.d("Credentials ","Basic " +base64EncodedCredentials.toString());
+
+                return header;
+            }
+            public int getMethod() {
+                return Method.GET;
+            }
+        };
+        // Adding request to request queue
+        VolleySingleton.getInstance(activity).addToRequestQueue(strReq);
+        VolleySingleton.getInstance(activity).getRequestQueue().getCache().remove(url);
+    }
 }

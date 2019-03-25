@@ -12,6 +12,8 @@ public class AppUrl {
 
     public static final String DONOR_LIST = "donor_list";
 
+    public static final String ACCEPT_DECLINE = "get_donor_details";
+
     public static final String SEEKER_LIST = "seeker_list";
 
     public static final String SEEKER_REQUEST_BLOOD = "request_blood";
